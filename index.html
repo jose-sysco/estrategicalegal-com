@@ -260,71 +260,6 @@
         animation: fadeUp 0.7s 0.16s ease both;
       }
 
-      /* Notify form */
-      .notify-wrap {
-        animation: fadeUp 0.7s 0.24s ease both;
-      }
-      .notify-label {
-        font-size: 0.72rem;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        color: var(--gray);
-        margin-bottom: 0.7rem;
-      }
-      .notify-form {
-        display: flex;
-        gap: 0;
-        max-width: 460px;
-      }
-      .notify-input {
-        flex: 1;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(201, 168, 76, 0.22);
-        border-right: none;
-        color: var(--cream);
-        font-family: "DM Sans", sans-serif;
-        font-size: 0.9rem;
-        font-weight: 300;
-        padding: 0.85rem 1.2rem;
-        outline: none;
-        transition: border-color 0.25s;
-        border-radius: 0;
-      }
-      .notify-input::placeholder {
-        color: var(--gray);
-      }
-      .notify-input:focus {
-        border-color: rgba(201, 168, 76, 0.55);
-      }
-      .notify-btn {
-        background: linear-gradient(135deg, var(--gold), #a07828);
-        border: none;
-        cursor: pointer;
-        padding: 0.85rem 1.6rem;
-        color: var(--dark);
-        font-family: "DM Sans", sans-serif;
-        font-size: 0.78rem;
-        font-weight: 500;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        transition:
-          opacity 0.2s,
-          transform 0.2s;
-        white-space: nowrap;
-      }
-      .notify-btn:hover {
-        opacity: 0.88;
-        transform: translateY(-1px);
-      }
-      .notify-success {
-        display: none;
-        font-size: 0.75rem;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--gold);
-        margin-top: 0.8rem;
-      }
-
       /* Divider row */
       .divider-row {
         display: flex;
@@ -425,19 +360,14 @@
         height: 64px;
         border-radius: 50%;
         flex-shrink: 0;
-        background: linear-gradient(
-          135deg,
-          rgba(201, 168, 76, 0.3),
-          rgba(160, 120, 40, 0.5)
-        );
         border: 2px solid rgba(201, 168, 76, 0.35);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: "Cormorant Garamond", serif;
-        font-size: 1.4rem;
-        font-weight: 600;
-        color: var(--gold);
+        overflow: hidden;
+      }
+      .profile-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
       }
       .profile-info h3 {
         font-family: "Cormorant Garamond", serif;
@@ -754,28 +684,10 @@
 
           <p class="hero-desc">
             Estratégica Legal está renovando su presencia digital. Un bufete
-            boutique de profesionales con más de 15 años de experiencia en
+            de profesionales con más de 15 años de experiencia en
             litigio estratégico, derecho corporativo, constitucional y
             tributario en Guatemala.
           </p>
-
-          <div class="notify-wrap">
-            <div class="notify-label">Ser notificado al lanzar</div>
-            <div class="notify-form">
-              <input
-                class="notify-input"
-                id="emailIn"
-                type="email"
-                placeholder="su@correo.com"
-              />
-              <button class="notify-btn" onclick="doNotify()">
-                Notifíqueme →
-              </button>
-            </div>
-            <div class="notify-success" id="notifyOk">
-              ✦ &nbsp;Le avisaremos en el momento del lanzamiento.
-            </div>
-          </div>
 
           <div class="divider-row">
             <div class="divider-line"></div>
@@ -800,7 +712,9 @@
           <div class="card-tag">Director del Bufete</div>
 
           <div class="profile-block">
-            <div class="profile-avatar">CM</div>
+            <div class="profile-avatar">
+              <img src="img/carlos-moran.png" alt="Carlos Morán" />
+            </div>
             <div class="profile-info">
               <h3>Carlos Morán</h3>
               <p>Director · Estratégica Legal<br /><em>Guatemala</em></p>
@@ -944,23 +858,6 @@
         ring.style.display = "none";
         document.body.style.cursor = "auto";
       }
-
-      /* Notify */
-      function doNotify() {
-        const inp = document.getElementById("emailIn");
-        const ok = document.getElementById("notifyOk");
-        if (!inp.value || !inp.value.includes("@")) {
-          inp.style.borderColor = "rgba(200,80,80,.6)";
-          setTimeout(() => (inp.style.borderColor = ""), 1500);
-          return;
-        }
-        inp.closest(".notify-form").style.opacity = ".4";
-        inp.closest(".notify-form").style.pointerEvents = "none";
-        ok.style.display = "block";
-      }
-      document.getElementById("emailIn").addEventListener("keydown", (e) => {
-        if (e.key === "Enter") doNotify();
-      });
 
       /* Animate stats on scroll */
       const obs = new IntersectionObserver(
