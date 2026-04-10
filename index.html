@@ -1,194 +1,985 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Estratégica Legal | Excelencia Jurídica</title>
-    <meta name="description"
-        content="Estratégica Legal: Bufete de abogados de élite. Soluciones estratégicas en derecho penal, corporativo y civil.">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Estratégica Legal — Próximamente</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
-</head>
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --dark: #08080a;
+        --dark2: #0d0d10;
+        --dark3: #131318;
+        --gold: #c9a84c;
+        --gold2: #e8c97a;
+        --goldx: #f0d898;
+        --border: rgba(201, 168, 76, 0.14);
+        --card: rgba(255, 255, 255, 0.03);
+        --gray: #7a7060;
+        --cream: #ede8dc;
+        --cream2: #a89e88;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--dark);
+        color: var(--cream);
+        font-family: "DM Sans", sans-serif;
+        font-weight: 300;
+        overflow-x: hidden;
+        min-height: 100vh;
+        cursor: none;
+      }
 
-<body>
-    <header id="main-header">
-        <div class="container">
-            <h1 class="logo">Estratégica <span>Legal</span></h1>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#hero">Inicio</a></li>
-                    <li><a href="#about">Nosotros</a></li>
-                    <li><a href="#areas">Servicios</a></li>
-                    <li><a href="#team">Equipo</a></li>
-                    <li><a href="#contact" class="btn-nav">Contacto</a></li>
-                </ul>
-            </nav>
+      /* ─── CURSOR ─── */
+      #cur-dot {
+        position: fixed;
+        width: 5px;
+        height: 5px;
+        background: var(--gold);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition: transform 0.1s;
+      }
+      #cur-ring {
+        position: fixed;
+        width: 32px;
+        height: 32px;
+        border: 1px solid rgba(201, 168, 76, 0.4);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9998;
+        transform: translate(-50%, -50%);
+        transition:
+          width 0.2s,
+          height 0.2s,
+          border-color 0.2s;
+      }
+
+      /* ─── GRAIN ─── */
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        opacity: 0.04;
+      }
+
+      /* ─── GRID BG ─── */
+      .grid-bg {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-image:
+          linear-gradient(rgba(201, 168, 76, 0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(201, 168, 76, 0.025) 1px, transparent 1px);
+        background-size: 72px 72px;
+        mask-image: radial-gradient(
+          ellipse 100% 100% at 50% 50%,
+          black 20%,
+          transparent 100%
+        );
+      }
+
+      /* ─── GLOW ─── */
+      .glow {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(
+            ellipse 70% 60% at 50% 40%,
+            rgba(201, 168, 76, 0.07) 0%,
+            transparent 65%
+          ),
+          radial-gradient(
+            ellipse 40% 40% at 15% 80%,
+            rgba(201, 168, 76, 0.04) 0%,
+            transparent 55%
+          ),
+          radial-gradient(
+            ellipse 35% 35% at 85% 15%,
+            rgba(201, 168, 76, 0.04) 0%,
+            transparent 50%
+          );
+      }
+
+      /* ─── WRAPPER ─── */
+      .page {
+        position: relative;
+        z-index: 1;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ─── NAV ─── */
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.4rem 5%;
+        border-bottom: 1px solid var(--border);
+        background: rgba(8, 8, 10, 0.6);
+        backdrop-filter: blur(20px);
+      }
+      .logo {
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 400;
+        font-size: 1.5rem;
+        letter-spacing: 0.08em;
+        color: var(--gold);
+      }
+      .logo span {
+        font-weight: 300;
+        color: var(--cream2);
+      }
+      .nav-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(201, 168, 76, 0.08);
+        border: 1px solid rgba(201, 168, 76, 0.25);
+        border-radius: 100px;
+        padding: 0.28rem 0.85rem;
+        font-size: 0.68rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+      .nav-badge::before {
+        content: "";
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--gold);
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.4;
+          transform: scale(1.6);
+        }
+      }
+      .nav-right {
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--cream2);
+      }
+
+      /* ─── HERO ─── */
+      .hero {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 4rem;
+        align-items: center;
+        padding: 5rem 5% 4rem;
+        max-width: 1300px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      /* LEFT */
+      .hero-left {
+      }
+      .coming-soon-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: rgba(201, 168, 76, 0.07);
+        border: 1px solid rgba(201, 168, 76, 0.22);
+        border-radius: 100px;
+        padding: 0.3rem 0.9rem;
+        font-size: 0.7rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 2rem;
+        animation: fadeUp 0.7s ease both;
+      }
+      .coming-soon-tag::before {
+        content: "✦";
+        font-size: 0.6rem;
+      }
+
+      h1 {
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 300;
+        font-size: clamp(3rem, 6.5vw, 5.8rem);
+        line-height: 1;
+        letter-spacing: -0.02em;
+        margin-bottom: 1.6rem;
+        animation: fadeUp 0.7s 0.08s ease both;
+      }
+      h1 .line2 {
+        display: block;
+        font-style: italic;
+        color: var(--gold);
+        font-weight: 300;
+      }
+      h1 .line3 {
+        display: block;
+        color: var(--cream2);
+        font-size: 0.55em;
+        font-style: normal;
+        letter-spacing: 0.02em;
+        margin-top: 0.3em;
+      }
+
+      .hero-desc {
+        font-size: 1rem;
+        line-height: 1.8;
+        color: var(--cream2);
+        max-width: 520px;
+        margin-bottom: 2.4rem;
+        animation: fadeUp 0.7s 0.16s ease both;
+      }
+
+      /* Notify form */
+      .notify-wrap {
+        animation: fadeUp 0.7s 0.24s ease both;
+      }
+      .notify-label {
+        font-size: 0.72rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--gray);
+        margin-bottom: 0.7rem;
+      }
+      .notify-form {
+        display: flex;
+        gap: 0;
+        max-width: 460px;
+      }
+      .notify-input {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(201, 168, 76, 0.22);
+        border-right: none;
+        color: var(--cream);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 300;
+        padding: 0.85rem 1.2rem;
+        outline: none;
+        transition: border-color 0.25s;
+        border-radius: 0;
+      }
+      .notify-input::placeholder {
+        color: var(--gray);
+      }
+      .notify-input:focus {
+        border-color: rgba(201, 168, 76, 0.55);
+      }
+      .notify-btn {
+        background: linear-gradient(135deg, var(--gold), #a07828);
+        border: none;
+        cursor: pointer;
+        padding: 0.85rem 1.6rem;
+        color: var(--dark);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.78rem;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        transition:
+          opacity 0.2s,
+          transform 0.2s;
+        white-space: nowrap;
+      }
+      .notify-btn:hover {
+        opacity: 0.88;
+        transform: translateY(-1px);
+      }
+      .notify-success {
+        display: none;
+        font-size: 0.75rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-top: 0.8rem;
+      }
+
+      /* Divider row */
+      .divider-row {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin: 2.4rem 0;
+        animation: fadeUp 0.7s 0.32s ease both;
+      }
+      .divider-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, var(--border), transparent);
+      }
+      .divider-text {
+        font-size: 0.68rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gray);
+        white-space: nowrap;
+      }
+
+      /* Services preview */
+      .services-preview {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        animation: fadeUp 0.7s 0.4s ease both;
+      }
+      .svc-pill {
+        background: rgba(201, 168, 76, 0.06);
+        border: 1px solid rgba(201, 168, 76, 0.18);
+        color: var(--cream2);
+        font-size: 0.68rem;
+        letter-spacing: 0.08em;
+        padding: 0.3rem 0.8rem;
+        transition:
+          color 0.2s,
+          border-color 0.2s;
+      }
+      .svc-pill:hover {
+        color: var(--gold);
+        border-color: rgba(201, 168, 76, 0.5);
+      }
+
+      /* ─── RIGHT CARD ─── */
+      .hero-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        padding: 2.2rem;
+        animation: fadeUp 0.7s 0.36s ease both;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          var(--gold2),
+          transparent
+        );
+      }
+      .card-tag {
+        font-size: 0.68rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1.4rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .card-tag::before {
+        content: "";
+        display: block;
+        width: 20px;
+        height: 1px;
+        background: var(--gold);
+      }
+
+      /* Profile block */
+      .profile-block {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding-bottom: 1.4rem;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 1.4rem;
+      }
+      .profile-avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(201, 168, 76, 0.3),
+          rgba(160, 120, 40, 0.5)
+        );
+        border: 2px solid rgba(201, 168, 76, 0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--gold);
+      }
+      .profile-info h3 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.1rem;
+        font-weight: 400;
+        color: var(--cream);
+        margin-bottom: 0.2rem;
+      }
+      .profile-info p {
+        font-size: 0.72rem;
+        color: var(--cream2);
+        line-height: 1.5;
+      }
+      .profile-info em {
+        color: var(--gold);
+        font-style: normal;
+      }
+
+      /* Stats mini */
+      .mini-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.7rem;
+        margin-bottom: 1.4rem;
+      }
+      .mini-stat {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border);
+        padding: 0.9rem 1rem;
+      }
+      .mini-stat .num {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.9rem;
+        font-weight: 300;
+        color: var(--gold);
+        line-height: 1;
+      }
+      .mini-stat .lbl {
+        font-size: 0.65rem;
+        color: var(--gray);
+        margin-top: 0.2rem;
+        letter-spacing: 0.05em;
+      }
+
+      /* Credential list */
+      .cred-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        margin-bottom: 1.4rem;
+      }
+      .cred-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.7rem;
+        background: rgba(255, 255, 255, 0.025);
+        border: 1px solid var(--border);
+        padding: 0.7rem 0.9rem;
+      }
+      .cred-dot {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--gold);
+        margin-top: 0.45rem;
+        flex-shrink: 0;
+      }
+      .cred-text {
+        font-size: 0.75rem;
+        color: var(--cream2);
+        line-height: 1.5;
+      }
+      .cred-text strong {
+        color: var(--cream);
+        display: block;
+        font-weight: 400;
+        font-size: 0.8rem;
+      }
+
+      /* Social row */
+      .social-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .social-label {
+        font-size: 0.65rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--gray);
+      }
+      .social-link {
+        font-size: 0.72rem;
+        color: var(--gold);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        transition: color 0.2s;
+      }
+      .social-link:hover {
+        color: var(--gold2);
+      }
+      .social-link::after {
+        content: "↗";
+        font-size: 0.8rem;
+      }
+
+      /* ─── STATS BAR ─── */
+      .stats-bar {
+        border-top: 1px solid var(--border);
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        background: rgba(201, 168, 76, 0.03);
+        position: relative;
+        z-index: 1;
+      }
+      .stat-item {
+        padding: 1.8rem 2rem;
+        border-right: 1px solid var(--border);
+        transition: background 0.3s;
+      }
+      .stat-item:last-child {
+        border-right: none;
+      }
+      .stat-item:hover {
+        background: rgba(201, 168, 76, 0.04);
+      }
+      .stat-num {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 2rem;
+        font-weight: 300;
+        color: var(--gold);
+        line-height: 1;
+        margin-bottom: 0.3rem;
+      }
+      .stat-label {
+        font-size: 0.68rem;
+        color: var(--gray);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      /* ─── FOOTER ─── */
+      footer {
+        position: relative;
+        z-index: 1;
+        border-top: 1px solid var(--border);
+        padding: 1.4rem 5%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(8, 8, 10, 0.4);
+      }
+      .footer-logo {
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 400;
+        font-size: 1.1rem;
+        letter-spacing: 0.08em;
+        color: var(--gold);
+      }
+      .footer-meta {
+        font-size: 0.7rem;
+        color: var(--gray);
+      }
+      .footer-loc {
+        font-size: 0.7rem;
+        color: var(--gray);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .footer-loc::before {
+        content: "◆";
+        font-size: 0.4rem;
+        color: var(--gold);
+      }
+
+      /* ─── QUOTE STRIP ─── */
+      .quote-strip {
+        position: relative;
+        z-index: 1;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        padding: 2.2rem 5%;
+        background: rgba(201, 168, 76, 0.04);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        overflow: hidden;
+      }
+      .quote-strip blockquote {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: clamp(1rem, 2vw, 1.25rem);
+        font-weight: 300;
+        color: var(--cream2);
+        text-align: center;
+        max-width: 700px;
+        line-height: 1.6;
+      }
+      .quote-strip cite {
+        display: block;
+        font-size: 0.68rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-top: 0.6rem;
+        font-style: normal;
+      }
+      .qmark {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 5rem;
+        color: rgba(201, 168, 76, 0.15);
+        line-height: 1;
+        flex-shrink: 0;
+      }
+
+      /* ─── ANIMATIONS ─── */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* ─── RESPONSIVE ─── */
+      @media (max-width: 960px) {
+        .hero {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+          padding: 3.5rem 5% 3rem;
+        }
+        .hero-card {
+          max-width: 480px;
+        }
+        .stats-bar {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .stat-item:nth-child(2) {
+          border-right: none;
+        }
+        .stat-item:nth-child(3) {
+          border-top: 1px solid var(--border);
+        }
+        nav .nav-right {
+          display: none;
+        }
+      }
+      @media (max-width: 560px) {
+        .hero {
+          padding: 2.5rem 5% 2rem;
+        }
+        .notify-form {
+          flex-direction: column;
+        }
+        .notify-input {
+          border-right: 1px solid rgba(201, 168, 76, 0.22);
+          border-bottom: none;
+        }
+        .notify-btn {
+          padding: 0.85rem;
+        }
+        .stats-bar {
+          grid-template-columns: 1fr 1fr;
+        }
+        footer {
+          flex-direction: column;
+          gap: 0.6rem;
+          text-align: center;
+        }
+        .mini-stats {
+          grid-template-columns: 1fr 1fr;
+        }
+        h1 {
+          font-size: clamp(2.6rem, 10vw, 3.5rem);
+        }
+        .quote-strip .qmark {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="cur-dot"></div>
+    <div id="cur-ring"></div>
+    <div class="grid-bg"></div>
+    <div class="glow"></div>
+
+    <div class="page">
+      <!-- NAV -->
+      <nav>
+        <div class="logo">Estratégica<span> Legal</span></div>
+        <div class="nav-badge">Próximamente</div>
+        <div class="nav-right">Guatemala · Derecho Estratégico</div>
+      </nav>
+
+      <!-- HERO -->
+      <main class="hero">
+        <!-- LEFT -->
+        <div class="hero-left">
+          <div class="coming-soon-tag">Nuevo sitio en camino</div>
+
+          <h1>
+            Algo<br />
+            <span class="line2">extraordinario</span>
+            <span class="line3">está por comenzar.</span>
+          </h1>
+
+          <p class="hero-desc">
+            Estratégica Legal está renovando su presencia digital. Un bufete
+            boutique de profesionales con más de 15 años de experiencia en
+            litigio estratégico, derecho corporativo, constitucional y
+            tributario en Guatemala.
+          </p>
+
+          <div class="notify-wrap">
+            <div class="notify-label">Ser notificado al lanzar</div>
+            <div class="notify-form">
+              <input
+                class="notify-input"
+                id="emailIn"
+                type="email"
+                placeholder="su@correo.com"
+              />
+              <button class="notify-btn" onclick="doNotify()">
+                Notifíqueme →
+              </button>
+            </div>
+            <div class="notify-success" id="notifyOk">
+              ✦ &nbsp;Le avisaremos en el momento del lanzamiento.
+            </div>
+          </div>
+
+          <div class="divider-row">
+            <div class="divider-line"></div>
+            <div class="divider-text">Áreas de Práctica</div>
+            <div class="divider-line"></div>
+          </div>
+
+          <div class="services-preview">
+            <span class="svc-pill">Litigio Estratégico</span>
+            <span class="svc-pill">Derecho Corporativo</span>
+            <span class="svc-pill">Derecho Constitucional</span>
+            <span class="svc-pill">Derecho Tributario</span>
+            <span class="svc-pill">Defensa Penal</span>
+            <span class="svc-pill">Derecho Laboral</span>
+            <span class="svc-pill">Consultoría Empresarial</span>
+            <span class="svc-pill">Recursos Naturales</span>
+          </div>
         </div>
-    </header>
 
-    <main>
-        <!-- Hero Section -->
-        <section id="hero" class="hero-section">
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <h2>Justicia, Integridad y <span class="highlight">Excelencia</span></h2>
-                <p>Defendiendo sus intereses con estrategia y determinación.</p>
-                <a href="#contact" class="btn-primary">Consulta</a>
+        <!-- RIGHT CARD -->
+        <div class="hero-card">
+          <div class="card-tag">Director del Bufete</div>
+
+          <div class="profile-block">
+            <div class="profile-avatar">CM</div>
+            <div class="profile-info">
+              <h3>Carlos Morán</h3>
+              <p>Director · Estratégica Legal<br /><em>Guatemala</em></p>
             </div>
-        </section>
+          </div>
 
-        <!-- About Section -->
-        <section id="about" class="section-padding">
-            <div class="container text-center">
-                <h2 class="section-title">Nuestra Firma</h2>
-                <div class="divider"></div>
-                <p class="section-subtitle">Más de 20 años de trayectoria garantizando resultados.</p>
-                <div class="about-grid">
-                    <div class="about-item">
-                        <h3>Misión</h3>
-                        <p>Proveer soluciones legales estratégicas con el más alto nivel de profesionalismo y ética.</p>
-                    </div>
-                    <div class="about-item">
-                        <h3>Visión</h3>
-                        <p>Ser reconocidos como el bufete líder en innovación legal y defensa de derechos.</p>
-                    </div>
-                </div>
+          <div class="mini-stats">
+            <div class="mini-stat">
+              <div class="num">15+</div>
+              <div class="lbl">Años de Práctica</div>
             </div>
-        </section>
-
-        <!-- Services Section -->
-        <section id="areas" class="section-padding bg-light">
-            <div class="container">
-                <h2 class="section-title text-center">Áreas de Práctica</h2>
-                <div class="divider mx-auto"></div>
-                <div class="services-grid">
-                    <div class="service-card">
-                        <div class="icon">⚖️</div>
-                        <h3>Derecho Penal</h3>
-                        <p>Defensa experta en litigios complejos y protección de derechos fundamentales.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="icon">🏢</div>
-                        <h3>Derecho Corporativo</h3>
-                        <p>Asesoría integral para empresas, fusiones y contratos comerciales.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="icon">👥</div>
-                        <h3>Derecho Laboral</h3>
-                        <p>Resolución de conflictos laborales y protección de trabajadores y empleadores.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="icon">🏠</div>
-                        <h3>Derecho Civil</h3>
-                        <p>Gestión de patrimonio, herencias y conflictos civiles.</p>
-                    </div>
-                </div>
+            <div class="mini-stat">
+              <div class="num">6</div>
+              <div class="lbl">Especialidades</div>
             </div>
-        </section>
-
-        <!-- Team Section (Carousel) -->
-        <section id="team" class="section-padding">
-            <div class="container">
-                <h2 class="section-title text-center">Nuestros Expertos</h2>
-                <div class="divider mx-auto"></div>
-
-                <div class="carousel-wrapper">
-                    <button class="carousel-btn prev" aria-label="Anterior">&#10094;</button>
-                    <div class="carousel-viewport">
-                        <div class="carousel-track">
-                            <!-- Lawyer 1 -->
-                            <div class="card">
-                                <img src="img/lawyer1.png" alt="Lic. Roberto Martinez">
-                                <div class="card-content">
-                                    <h3>Lic. Roberto Martinez</h3>
-                                    <span class="role">Socio Fundador</span>
-                                    <p>Especialista en Derecho Penal con 15 años de experiencia.</p>
-                                </div>
-                            </div>
-                            <!-- Lawyer 2 -->
-                            <div class="card">
-                                <img src="img/lawyer2.png" alt="Lic. Sofia Rodriguez">
-                                <div class="card-content">
-                                    <h3>Lic. Sofia Rodriguez</h3>
-                                    <span class="role">Derecho Corporativo</span>
-                                    <p> experta en fusiones y adquisiciones internacionales.</p>
-                                </div>
-                            </div>
-                            <!-- Lawyer 3 -->
-                            <div class="card">
-                                <img src="img/lawyer3.png" alt="Dr. Carlos Mendez">
-                                <div class="card-content">
-                                    <h3>Dr. Carlos Mendez</h3>
-                                    <span class="role">Derecho Civil</span>
-                                    <p>Doctor en leyes con enfoque en litigio estratégico.</p>
-                                </div>
-                            </div>
-                            <!-- Lawyer 4 (Duplicate for carousel effect if needed, or remove) -->
-                            <div class="card">
-                                <img src="img/lawyer1.png" alt="Lic. Alejandro Gomez">
-                                <div class="card-content">
-                                    <h3>Lic. Alejandro Gomez</h3>
-                                    <span class="role">Derecho Laboral</span>
-                                    <p>Experto en mediación y resolución de conflictos.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="carousel-btn next" aria-label="Siguiente">&#10095;</button>
-                </div>
+            <div class="mini-stat">
+              <div class="num">MSc</div>
+              <div class="lbl">Der. Constitucional</div>
             </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="section-padding bg-dark text-white">
-            <div class="container">
-                <div class="contact-layout">
-                    <div class="contact-info">
-                        <h2>Contáctenos</h2>
-                        <p>Estamos listos para defender su caso. Agende su cita hoy.</p>
-                        <ul class="info-list">
-                            <li>📍 Av. Reforma 12-34, Ciudad de Guatemala</li>
-                            <li>📞 +502 2222-3333</li>
-                            <li>✉️ contacto@estrategicalegal.com</li>
-                        </ul>
-                    </div>
-                    <form class="contact-form">
-                        <div class="form-group">
-                            <input type="text" id="nombre" placeholder="Nombre Completo" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" id="telefono" placeholder="Teléfono" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="correo" placeholder="Correo Electrónico" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="mensaje" rows="4" placeholder="¿En qué podemos ayudarle?" required></textarea>
-                        </div>
-                        <button type="submit" class="btn-submit">Enviar Mensaje</button>
-                    </form>
-                </div>
+            <div class="mini-stat">
+              <div class="num">PhD</div>
+              <div class="lbl">Tributario · Mercantil</div>
             </div>
-        </section>
-    </main>
+          </div>
 
-    <footer>
-        <div class="container text-center">
-            <p>&copy; 2026 Estratégica Legal. Todos los derechos reservados.</p>
-            <div class="social-links">
-                <a href="#">LinkedIn</a> | <a href="#">Twitter</a> | <a href="#">Facebook</a>
+          <div class="cred-list">
+            <div class="cred-item">
+              <div class="cred-dot"></div>
+              <div class="cred-text">
+                <strong>George Washington University Law School</strong>
+                Certificado · International Compliance &amp; Anti-Corruption ·
+                2019
+              </div>
             </div>
+            <div class="cred-item">
+              <div class="cred-dot"></div>
+              <div class="cred-text">
+                <strong>Universidad de Castilla-La Mancha · España</strong>
+                Posgrado · Garantías Constitucionales en Proceso Penal · 2018
+              </div>
+            </div>
+            <div class="cred-item">
+              <div class="cred-dot"></div>
+              <div class="cred-text">
+                <strong>Universidad de San Carlos de Guatemala</strong>
+                Maestría Der. Constitucional · Doctor of Law (JD) · Abogado y
+                Notario
+              </div>
+            </div>
+          </div>
+
+          <div class="social-row">
+            <span class="social-label">Perfil profesional</span>
+            <a
+              class="social-link"
+              href="https://www.linkedin.com/in/carlos-morán"
+              target="_blank"
+              >LinkedIn</a
+            >
+          </div>
         </div>
-    </footer>
+      </main>
 
-    <a href="https://wa.me/50222223333" class="whatsapp-float" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-    </a>
+      <!-- STATS BAR -->
+      <div class="stats-bar">
+        <div class="stat-item">
+          <div class="stat-num">15+</div>
+          <div class="stat-label">Años de Experiencia</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">GWU</div>
+          <div class="stat-label">Compliance Internacional</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">8+</div>
+          <div class="stat-label">Años Catedrático USAC</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">GT</div>
+          <div class="stat-label">Zona 14 · Guatemala</div>
+        </div>
+      </div>
 
-    <script src="js/main.js"></script>
-</body>
+      <!-- QUOTE -->
+      <div class="quote-strip">
+        <div class="qmark">"</div>
+        <blockquote>
+          La injusticia en cualquier lugar es una amenaza a la justicia en todas
+          partes.
+          <cite>— Martin Luther King Jr., Abril de 1963</cite>
+        </blockquote>
+        <div class="qmark">"</div>
+      </div>
 
+      <!-- FOOTER -->
+      <footer>
+        <div class="footer-logo">Estratégica Legal</div>
+        <div class="footer-meta">© 2026 · Todos los derechos reservados</div>
+        <div class="footer-loc">Edificio Europlaza, Zona 14, Guatemala</div>
+      </footer>
+    </div>
+    <!-- .page -->
+
+    <script>
+      /* Cursor */
+      const dot = document.getElementById("cur-dot");
+      const ring = document.getElementById("cur-ring");
+      let mx = 0,
+        my = 0,
+        rx = 0,
+        ry = 0;
+      document.addEventListener("mousemove", (e) => {
+        mx = e.clientX;
+        my = e.clientY;
+        dot.style.left = mx + "px";
+        dot.style.top = my + "px";
+      });
+      (function loop() {
+        rx += (mx - rx) * 0.1;
+        ry += (my - ry) * 0.1;
+        ring.style.left = rx + "px";
+        ring.style.top = ry + "px";
+        requestAnimationFrame(loop);
+      })();
+      document
+        .querySelectorAll("a,button,.svc-pill,.stat-item")
+        .forEach((el) => {
+          el.addEventListener("mouseenter", () => {
+            ring.style.width = "52px";
+            ring.style.height = "52px";
+            ring.style.borderColor = "rgba(201,168,76,.7)";
+          });
+          el.addEventListener("mouseleave", () => {
+            ring.style.width = "32px";
+            ring.style.height = "32px";
+            ring.style.borderColor = "";
+          });
+        });
+      if ("ontouchstart" in window) {
+        dot.style.display = "none";
+        ring.style.display = "none";
+        document.body.style.cursor = "auto";
+      }
+
+      /* Notify */
+      function doNotify() {
+        const inp = document.getElementById("emailIn");
+        const ok = document.getElementById("notifyOk");
+        if (!inp.value || !inp.value.includes("@")) {
+          inp.style.borderColor = "rgba(200,80,80,.6)";
+          setTimeout(() => (inp.style.borderColor = ""), 1500);
+          return;
+        }
+        inp.closest(".notify-form").style.opacity = ".4";
+        inp.closest(".notify-form").style.pointerEvents = "none";
+        ok.style.display = "block";
+      }
+      document.getElementById("emailIn").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") doNotify();
+      });
+
+      /* Animate stats on scroll */
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.style.opacity = "1";
+              e.target.style.transform = "none";
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document.querySelectorAll(".stat-item,.svc-pill").forEach((el, i) => {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(14px)";
+        el.style.transition = `opacity .5s ${i * 0.05}s ease, transform .5s ${i * 0.05}s ease`;
+        obs.observe(el);
+      });
+    </script>
+  </body>
 </html>
