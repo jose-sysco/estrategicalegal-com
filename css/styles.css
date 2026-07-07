@@ -31,34 +31,6 @@ body {
   font-weight: 300;
   overflow-x: hidden;
   min-height: 100vh;
-  cursor: none;
-}
-
-/* ─── CURSOR ─── */
-#cur-dot {
-  position: fixed;
-  width: 5px;
-  height: 5px;
-  background: var(--blue);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s;
-}
-#cur-ring {
-  position: fixed;
-  width: 32px;
-  height: 32px;
-  border: 1px solid rgba(52, 86, 140, 0.45);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition:
-    width 0.2s,
-    height 0.2s,
-    border-color 0.2s;
 }
 
 /* ─── GRAIN ─── */
@@ -124,12 +96,15 @@ body::after {
 
 /* ─── NAV ─── */
 nav {
+  position: sticky;
+  top: 0;
+  z-index: 60;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1.4rem 5%;
   border-bottom: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(20px);
 }
 .logo {
@@ -931,8 +906,10 @@ footer {
   max-width: 1300px;
   margin: 0 auto;
   padding: 4.5rem 5% 1rem;
+  text-align: center;
 }
 .page-hero .eyebrow {
+  justify-content: center;
   margin-bottom: 1.2rem;
 }
 .page-hero h1 {
@@ -948,12 +925,15 @@ footer {
   line-height: 1.8;
   color: var(--gray);
   max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ─── LAWYER PROFILES (equipo.html) ─── */
 .lawyer {
   display: grid;
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 280px minmax(0, 560px);
+  justify-content: center;
   gap: 3rem;
   padding: 3.2rem 0;
   border-top: 1px solid var(--border);
@@ -1086,6 +1066,7 @@ footer {
 .area-detail .area-head {
   display: flex;
   align-items: baseline;
+  justify-content: center;
   gap: 1rem;
   margin-bottom: 0.6rem;
 }
@@ -1104,6 +1085,7 @@ footer {
   font-style: italic;
   font-size: 1.05rem;
   color: var(--blue);
+  text-align: center;
   margin-bottom: 1.4rem;
 }
 .area-detail .lead {
@@ -1111,7 +1093,7 @@ footer {
   line-height: 1.85;
   color: var(--gray);
   max-width: 760px;
-  margin-bottom: 2rem;
+  margin: 0 auto 2rem;
 }
 .svc-grid {
   display: grid;
@@ -1153,12 +1135,12 @@ footer {
   color: var(--gray);
 }
 .area-note {
-  margin-top: 1.6rem;
+  margin: 1.6rem auto 0;
+  max-width: 700px;
   font-size: 0.9rem;
   line-height: 1.75;
   color: var(--gray);
-  border-left: 3px solid var(--border-strong);
-  padding-left: 1rem;
+  text-align: center;
 }
 
 /* ─── CONTACT (contacto.html) ─── */
@@ -1374,13 +1356,13 @@ footer {
   .nav-menu {
     position: fixed;
     inset: 0 0 auto 0;
-    top: 62px;
+    top: 61px;
     flex-direction: column;
     align-items: flex-start;
     gap: 0;
-    background: rgba(255, 255, 255, 0.97);
-    backdrop-filter: blur(20px);
+    background: var(--paper);
     border-bottom: 1px solid var(--border);
+    box-shadow: 0 16px 30px rgba(27, 44, 71, 0.14);
     padding: 0.5rem 5% 1.2rem;
     transform: translateY(-120%);
     transition: transform 0.3s ease;
@@ -1436,4 +1418,25 @@ footer {
   .section {
     padding: 3.2rem 5%;
   }
+}
+
+/* ─── Texto justificado (prosa) ─── */
+/* max-width acota el ancho de lectura (~62 car.) para que el
+   justificado no abra huecos entre palabras en pantallas anchas. */
+.hero-desc,
+.section-sub,
+.intro-lead,
+.intro-body p,
+.area-detail .lead,
+.page-hero p,
+.lawyer-body .intro,
+.lawyer-body .block p {
+  text-align: justify;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  max-width: 62ch;
+}
+/* Mantener centrados los subtítulos de encabezados centrados */
+.section-head.center .section-sub {
+  text-align: center;
 }
