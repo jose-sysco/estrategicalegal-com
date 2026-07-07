@@ -18,11 +18,29 @@ document.addEventListener("mousemove", (e) => {
   requestAnimationFrame(loop);
 })();
 
-document.querySelectorAll("a,button,.svc-pill,.stat-item").forEach((el) => {
+/* ─── MOBILE NAV ─── */
+const navToggle = document.querySelector(".nav-toggle");
+const navMenu = document.querySelector(".nav-menu");
+if (navToggle && navMenu) {
+  navToggle.addEventListener("click", () => {
+    navToggle.classList.toggle("open");
+    navMenu.classList.toggle("open");
+  });
+  navMenu.querySelectorAll("a").forEach((a) => {
+    a.addEventListener("click", () => {
+      navToggle.classList.remove("open");
+      navMenu.classList.remove("open");
+    });
+  });
+}
+
+document.querySelectorAll(
+  "a,button,.svc-pill,.stat-item,.area-card,.team-card"
+).forEach((el) => {
   el.addEventListener("mouseenter", () => {
     ring.style.width = "52px";
     ring.style.height = "52px";
-    ring.style.borderColor = "rgba(201,168,76,.7)";
+    ring.style.borderColor = "rgba(52,86,140,.7)";
   });
   el.addEventListener("mouseleave", () => {
     ring.style.width = "32px";
