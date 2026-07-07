@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Claude Code (config local)
+.claude/settings.local.json
+
+# Respaldos
+.backup/
+*.bak
+
+# Editores
+.vscode/
+.idea/
+*.swp
