@@ -3,37 +3,71 @@ const navToggle = document.querySelector(".nav-toggle");
 const navMenu = document.querySelector(".nav-menu");
 if (navToggle && navMenu) {
   navToggle.addEventListener("click", () => {
-    navToggle.classList.toggle("open");
-    navMenu.classList.toggle("open");
+    const isOpen = navMenu.classList.toggle("open");
+    navToggle.classList.toggle("open", isOpen);
+    navToggle.setAttribute("aria-expanded", String(isOpen));
   });
   navMenu.querySelectorAll("a").forEach((a) => {
     a.addEventListener("click", () => {
-      navToggle.classList.remove("open");
       navMenu.classList.remove("open");
+      navToggle.classList.remove("open");
+      navToggle.setAttribute("aria-expanded", "false");
     });
   });
 }
 
-/* ─── ANIMATE STATS ON SCROLL ─── */
-const obs = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) {
-        e.target.style.opacity = "1";
-        e.target.style.transform = "none";
-      }
-    });
-  },
-  { threshold: 0.1 }
-);
-
-document.querySelectorAll(".stat-item,.svc-pill").forEach((el, i) => {
-  el.style.opacity = "0";
-  el.style.transform = "translateY(14px)";
-  el.style.transition = `opacity .5s ${i * 0.05}s ease, transform .5s ${i * 0.05}s ease`;
-  obs.observe(el);
+/* ─── AÑO DINÁMICO (© footer) ─── */
+document.querySelectorAll("#year").forEach((el) => {
+  el.textContent = new Date().getFullYear();
 });
 
-/* ─── AÑO DINÁMICO (© footer) ─── */
-const yearEl = document.getElementById("year");
-if (yearEl) yearEl.textContent = new Date().getFullYear();
+/* ─── FORMULARIO DE CONTACTO (mailto:) ─── */
+const contactForm = document.getElementById("contact-form");
+if (contactForm) {
+  const telefonoInput = contactForm.telefono;
+
+  /* Máscara XXXX-XXXX: solo dígitos, guion automático tras el 4to */
+  telefonoInput.addEventListener("input", () => {
+    const digits = telefonoInput.value.replace(/\D/g, "").slice(0, 8);
+    telefonoInput.value =
+      digits.length > 4 ? digits.slice(0, 4) + "-" + digits.slice(4) : digits;
+
+    if (digits.length === 0) {
+      telefonoInput.setCustomValidity("Ingrese su número de teléfono.");
+    } else if (digits.length < 8) {
+      telefonoInput.setCustomValidity("El teléfono debe tener 8 dígitos (0000-0000).");
+    } else {
+      telefonoInput.setCustomValidity("");
+    }
+  });
+  /* Estado inicial: vacío = inválido (campo requerido) */
+  telefonoInput.setCustomValidity("Ingrese su número de teléfono.");
+
+  contactForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    /* Validación nativa: nombre y mensaje presentes, correo con formato
+       válido (type=email) y teléfono con 8 dígitos (setCustomValidity). */
+    if (!contactForm.reportValidity()) return;
+
+    const nombre = contactForm.nombre.value.trim();
+    const correo = contactForm.correo.value.trim();
+    const telefono = telefonoInput.value.trim();
+    const mensaje = contactForm.mensaje.value.trim();
+
+    const subject = `Consulta de ${nombre} — Estratégica Legal`;
+    const bodyLines = [
+      `Nombre: ${nombre}`,
+      `Correo: ${correo}`,
+      `Teléfono: ${telefono}`,
+      "",
+      mensaje,
+    ];
+
+    const mailto = `mailto:carlos.moran@estrategicalegal.com?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(bodyLines.join("\n"))}`;
+
+    window.location.href = mailto;
+  });
+}
