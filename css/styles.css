@@ -19,6 +19,7 @@
   --font-body: "Inter", sans-serif;
 
   --container: 1240px;
+  --nav-h: 78px;
 }
 
 *,
@@ -31,6 +32,10 @@
 
 html {
   scroll-behavior: smooth;
+  /* Los anclas (#litigio, #corporativo…) no quedan bajo el header fijo */
+  scroll-padding-top: calc(var(--nav-h) + 14px);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -42,6 +47,7 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
 }
 
 img {
@@ -144,7 +150,7 @@ nav.site-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 78px;
+  height: var(--nav-h);
 }
 .logo-lockup {
   display: flex;
@@ -152,11 +158,8 @@ nav.site-nav {
   gap: 0.7rem;
 }
 .logo-mark {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  overflow: hidden;
-  background: var(--white);
+  width: 42px;
+  height: 42px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -165,8 +168,12 @@ nav.site-nav {
 .logo-mark img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transform: scale(1.28);
+  object-fit: contain;
+  display: block;
+  /* El logo entregado es azul institucional sobre transparente; en el header
+     y footer (fondo azul profundo) se recolorea a blanco conservando los
+     contornos transparentes del monograma. */
+  filter: brightness(0) invert(1);
 }
 .logo-text {
   display: flex;
@@ -1219,8 +1226,55 @@ footer.site-footer {
   border-radius: 100px;
 }
 
-/* ─── RESPONSIVE ─── */
+/* ─────────────────────────────────────────────
+   RESPONSIVE
+   >960px  ......... escritorio (diseño completo)
+   ≤960px  ......... tableta: menú hamburguesa + rejillas a 1 col
+   ≤620px  ......... teléfono: tema móvil afinado
+───────────────────────────────────────────── */
+
+/* ===== TABLETA / DESKTOP PEQUEÑO (≤960px) ===== */
 @media (max-width: 960px) {
+  /* Navegación → menú hamburguesa (los 6 enlaces ya no caben en una fila) */
+  .nav-toggle {
+    display: flex;
+  }
+  .nav-menu {
+    position: fixed;
+    top: var(--nav-h);
+    left: 0;
+    right: 0;
+    background: var(--azul-profundo);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0.25rem clamp(1.25rem, 5vw, 3rem) 1.25rem;
+    transform: translateY(-10px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    min-height: calc(100dvh - var(--nav-h));
+    max-height: calc(100dvh - var(--nav-h));
+    overflow-y: auto;
+  }
+  .nav-menu.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .nav-menu a {
+    width: 100%;
+    padding: 1rem 0.25rem;
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .nav-menu a.active {
+    color: var(--bronce-light);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+  }
+
+  /* Rejillas principales a una columna */
   .hero-grid,
   .pillars-grid,
   .firma-grid,
@@ -1229,7 +1283,7 @@ footer.site-footer {
   }
   .photo-box {
     height: auto;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 10;
     min-height: 0;
   }
   .industries-grid {
@@ -1272,39 +1326,64 @@ footer.site-footer {
   }
   .footer-inner {
     grid-template-columns: 1fr 1fr;
+    gap: 1.75rem 2.5rem;
   }
 }
 
-@media (max-width: 680px) {
-  .nav-toggle {
-    display: flex;
+/* ===== TELÉFONO (≤620px): tema móvil afinado ===== */
+@media (max-width: 620px) {
+  :root {
+    --nav-h: 64px;
   }
-  .nav-menu {
-    position: fixed;
-    top: 78px;
-    left: 0;
-    right: 0;
-    background: var(--azul-profundo);
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0;
-    padding: 0.5rem clamp(1.25rem, 4vw, 3rem) 1rem;
-    transform: translateY(-8px);
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.2s ease;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+  /* Ritmo vertical más compacto */
+  .section {
+    padding: 2.4rem clamp(1.1rem, 5vw, 1.5rem);
   }
-  .nav-menu.open {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
+  .page-hero {
+    padding: 2rem clamp(1.1rem, 5vw, 1.5rem) 1.75rem;
   }
-  .nav-menu a {
+  .hero {
+    padding: 1.75rem clamp(1.1rem, 5vw, 1.5rem) 2rem;
+  }
+
+  /* Tipografía que respira en pantallas chicas */
+  .hero-copy h1 {
+    font-size: clamp(1.85rem, 8.5vw, 2.35rem);
+    line-height: 1.16;
+  }
+  .page-hero h1 {
+    font-size: clamp(1.7rem, 7.5vw, 2.15rem);
+    line-height: 1.18;
+  }
+  .section-title {
+    font-size: clamp(1.5rem, 6.5vw, 1.95rem);
+    line-height: 1.2;
+  }
+  .pillar-card h3 {
+    font-size: 1.5rem;
+  }
+  .hero-desc {
+    max-width: none;
+  }
+
+  /* El placeholder del hero no domina la pantalla (aún sin foto real) */
+  .photo-box {
+    aspect-ratio: 3 / 2;
+  }
+
+  /* Botones del hero a ancho completo, con zona táctil cómoda */
+  .hero-actions {
+    gap: 0.75rem;
+  }
+  .hero-actions .btn {
     width: 100%;
-    padding: 0.85rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    justify-content: center;
+    padding-top: 0.95rem;
+    padding-bottom: 0.95rem;
   }
+
+  /* Industrias, equipo, servicios y perfiles a una columna */
   .industry-strip {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1319,17 +1398,56 @@ footer.site-footer {
   .industry-detail-grid {
     grid-template-columns: 1fr;
   }
-  .footer-inner {
-    grid-template-columns: 1fr;
-  }
-  .cta-bar-inner {
-    flex-direction: column;
-    align-items: flex-start;
-  }
   .lawyer-specialty-list {
     grid-template-columns: 1fr;
   }
   .pillar-list {
     grid-template-columns: 1fr;
+  }
+
+  /* CTA inferior apilada, con botones a lo ancho */
+  .cta-bar-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.4rem;
+  }
+  .cta-bar-actions {
+    width: 100%;
+  }
+  .cta-bar-actions .btn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  /* Footer a una columna, con aire para no chocar con el botón flotante */
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+  }
+  .footer-bottom {
+    padding-bottom: 4.5rem;
+  }
+
+  /* Texto largo (correo, dirección) no se sale del borde */
+  .contact-item .value,
+  .footer-col a,
+  .footer-col p {
+    overflow-wrap: anywhere;
+  }
+  .map-wrap,
+  .map-wrap iframe {
+    min-height: 220px;
+  }
+
+  /* Botón flotante de WhatsApp: más discreto y con margen seguro */
+  .whatsapp-float {
+    width: 50px;
+    height: 50px;
+    right: 1rem;
+    bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  }
+  .whatsapp-float svg {
+    width: 25px;
+    height: 25px;
   }
 }
