@@ -1227,11 +1227,58 @@ footer.site-footer {
 }
 
 /* ─────────────────────────────────────────────
+   JUSTIFICADO DE TEXTO (todos los anchos)
+   El cuerpo de texto va justificado en cualquier dispositivo —teléfono,
+   tablet, iPad horizontal, laptop y escritorio— para un bloque parejo y
+   ordenado. El guionado automático (lang="es") evita los "ríos" de
+   espacios. Solo aplica a párrafos: los títulos grandes en serif quedan
+   alineados a la izquierda a propósito.
+───────────────────────────────────────────── */
+.hero-desc,
+.page-hero p,
+.section-sub,
+.industries-intro,
+.firma-lead,
+.firma-body p,
+.pillar-motto,
+.area-lead,
+.area-motto,
+.area-note,
+.svc-card p,
+.industry-card p,
+.lawyer-body p,
+.lawyer-body .intro,
+.team-card.lead .team-body p {
+  text-align: justify;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+/* ─────────────────────────────────────────────
    RESPONSIVE
    >960px  ......... escritorio (diseño completo)
    ≤960px  ......... tableta: menú hamburguesa + rejillas a 1 col
    ≤620px  ......... teléfono: tema móvil afinado
 ───────────────────────────────────────────── */
+
+/* ===== TABLET HORIZONTAL / LAPTOP PEQUEÑA (≤1200px) =====
+   En este rango sigue activo el diseño de escritorio, pero la tira de 8
+   industrias en una sola fila queda demasiado apretada (p. ej. iPad 11"
+   en horizontal) y las etiquetas largas se cortan. Se reacomoda: intro
+   arriba y la tira en 4 columnas, de modo que nunca se desborde. */
+@media (max-width: 1200px) {
+  .industries-grid {
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+  }
+  .industry-strip {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.6rem 0;
+  }
+  .industry-item:nth-child(4n + 1) {
+    border-left: none;
+  }
+}
 
 /* ===== TABLETA / DESKTOP PEQUEÑO (≤960px) ===== */
 @media (max-width: 960px) {
@@ -1281,10 +1328,21 @@ footer.site-footer {
   .contact-grid {
     grid-template-columns: 1fr;
   }
+  /* Sin foto real, el bloque de marca no debe ser una caja grande y vacía
+     en tablet ni teléfono: se ocultan los marcadores de desarrollo y
+     colapsa a una franja compacta con el lema. */
   .photo-box {
     height: auto;
-    aspect-ratio: 16 / 10;
+    aspect-ratio: auto;
     min-height: 0;
+  }
+  .photo-placeholder-tag,
+  .photo-icon {
+    display: none;
+  }
+  .photo-caption {
+    padding: 1.5rem 1.7rem;
+    background: linear-gradient(150deg, var(--azul-institucional) 0%, var(--azul-profundo) 100%);
   }
   .industries-grid {
     grid-template-columns: 1fr;
@@ -1367,9 +1425,27 @@ footer.site-footer {
     max-width: none;
   }
 
-  /* El placeholder del hero no domina la pantalla (aún sin foto real) */
-  .photo-box {
-    aspect-ratio: 3 / 2;
+  /* La cita destacada de "La Firma" no debe competir con el título:
+     tamaño proporcionado a la pantalla del teléfono */
+  .firma-lead {
+    font-size: 1.15rem;
+    line-height: 1.5;
+  }
+  .tagline-block {
+    margin-top: 1.4rem;
+    padding-top: 1.4rem;
+  }
+  .tagline-block .line {
+    font-size: 1.15rem;
+  }
+
+  /* La franja de marca (colapsada ya en ≤960) usa un lema algo más
+     contenido en teléfono */
+  .photo-caption {
+    padding: 1.4rem 1.5rem;
+  }
+  .photo-caption .line {
+    font-size: 1.2rem;
   }
 
   /* Botones del hero a ancho completo, con zona táctil cómoda */
