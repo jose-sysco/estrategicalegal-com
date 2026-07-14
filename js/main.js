@@ -35,7 +35,9 @@ if (contactForm) {
     if (digits.length === 0) {
       telefonoInput.setCustomValidity("Ingrese su número de teléfono.");
     } else if (digits.length < 8) {
-      telefonoInput.setCustomValidity("El teléfono debe tener 8 dígitos (0000-0000).");
+      telefonoInput.setCustomValidity(
+        "El teléfono debe tener 8 dígitos (0000-0000).",
+      );
     } else {
       telefonoInput.setCustomValidity("");
     }
@@ -64,8 +66,8 @@ if (contactForm) {
       mensaje,
     ];
 
-    const mailto = `mailto:carlos.moran@estrategicalegal.com?subject=${encodeURIComponent(
-      subject
+    const mailto = `mailto:contacto@estrategicalegal.com?subject=${encodeURIComponent(
+      subject,
     )}&body=${encodeURIComponent(bodyLines.join("\n"))}`;
 
     window.location.href = mailto;
