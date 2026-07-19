@@ -287,6 +287,21 @@ nav.site-nav {
   object-fit: cover;
   display: block;
 }
+/* ─── BANNER DE PORTADA (ancho completo) ───
+   Banner ya diagramado que incluye logo y rótulo. Ocupa todo el ancho y se
+   recorta solo en vertical: la composición (logo, texto y columnas) está
+   centrada, así que no se pierde nada al reducir la altura. */
+.page-banner {
+  background: var(--azul-profundo);
+  line-height: 0;
+}
+.page-banner img {
+  width: 100%;
+  height: clamp(190px, 26vw, 380px);
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
 
 .eyebrow {
   font-size: 0.78rem;
@@ -647,7 +662,9 @@ nav.site-nav {
   border-top: 3px solid var(--bronce);
 }
 .team-photo {
-  aspect-ratio: 4 / 3;
+  /* Retrato vertical 4:5: da mayor presencia a la fotografía y deja ver
+     el pecho completo de cada abogado. */
+  aspect-ratio: 4 / 5;
   background: linear-gradient(165deg, #24466b 0%, var(--azul-institucional) 100%);
   display: flex;
   align-items: center;
@@ -1076,6 +1093,32 @@ footer.site-footer {
 .lawyer-aside .team-role {
   margin-top: 0.4rem;
 }
+/* Enlace a LinkedIn en la ficha del abogado */
+.lawyer-linkedin {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.1rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--azul-institucional);
+  transition: all 0.2s ease;
+}
+.lawyer-linkedin svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+.lawyer-linkedin:hover {
+  background: var(--azul-institucional);
+  border-color: var(--azul-institucional);
+  color: var(--white);
+}
+
 .lawyer-quickfacts {
   display: flex;
   flex-wrap: wrap;
