@@ -287,6 +287,20 @@ nav.site-nav {
   object-fit: cover;
   display: block;
 }
+/* Texto disponible para SEO y lectores de pantalla, oculto visualmente
+   (se usa cuando el título ya está rotulado dentro de un banner). */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ─── BANNER DE PORTADA (ancho completo) ───
    Banner ya diagramado que incluye logo y rótulo. Ocupa todo el ancho y se
    recorta solo en vertical: la composición (logo, texto y columnas) está
