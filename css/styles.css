@@ -261,6 +261,33 @@ nav.site-nav {
   font-size: 1.02rem;
 }
 
+/* Variante con fotografía: texto a la izquierda, imagen a la derecha */
+.page-hero.with-photo .page-hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: clamp(1.5rem, 3.5vw, 3rem);
+  align-items: center;
+}
+.page-hero-photo {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(
+    155deg,
+    var(--azul-institucional) 0%,
+    var(--azul-profundo) 100%
+  );
+}
+.page-hero-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .eyebrow {
   font-size: 0.78rem;
   font-weight: 600;
@@ -317,6 +344,15 @@ nav.site-nav {
 }
 .photo-box.short {
   aspect-ratio: 16 / 10;
+}
+/* Hero del home con fotografía real */
+.photo-box.has-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 .photo-placeholder-tag {
   position: absolute;
@@ -617,10 +653,23 @@ nav.site-nav {
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
 }
+/* Retratos: encuadre hacia la parte superior para dejar visible el rostro */
+.team-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+/* Tarjeta destacada (La Firma): se conserva la misma proporción 4/3 de las
+   tarjetas del grid para que el retrato no quede recortado en exceso. */
 .team-card.lead .team-photo {
-  width: 42%;
-  aspect-ratio: auto;
+  width: 32%;
+  aspect-ratio: 4 / 3;
 }
 .team-initials {
   font-family: var(--font-heading);
@@ -1006,6 +1055,17 @@ footer.site-footer {
   align-items: center;
   justify-content: center;
   margin-bottom: 1.3rem;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-xl img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
 }
 .avatar-xl .team-initials {
   font-size: 3.4rem;
@@ -1325,8 +1385,12 @@ footer.site-footer {
   .hero-grid,
   .pillars-grid,
   .firma-grid,
-  .contact-grid {
+  .contact-grid,
+  .page-hero.with-photo .page-hero-inner {
     grid-template-columns: 1fr;
+  }
+  .page-hero-photo {
+    aspect-ratio: 16 / 9;
   }
   /* Sin foto real, el bloque de marca no debe ser una caja grande y vacía
      en tablet ni teléfono: se ocultan los marcadores de desarrollo y
@@ -1423,6 +1487,18 @@ footer.site-footer {
   }
   .hero-desc {
     max-width: none;
+  }
+
+  /* ── En móvil SOLO se ven las fotografías del equipo ──
+     Se ocultan las fotos grupales / de ambiente (hero del home y los heroes
+     interiores de La Firma y Áreas). Los retratos del equipo
+     (.team-photo y .avatar-xl) permanecen visibles. */
+  .photo-box,
+  .page-hero-photo {
+    display: none;
+  }
+  .page-hero.with-photo .page-hero-inner {
+    gap: 0;
   }
 
   /* La cita destacada de "La Firma" no debe competir con el título:
