@@ -21,7 +21,9 @@ document.querySelectorAll("#year").forEach((el) => {
   el.textContent = new Date().getFullYear();
 });
 
-/* ─── FORMULARIO DE CONTACTO (mailto:) ─── */
+/* ─── FORMULARIO DE CONTACTO ───
+   Envía por fetch a /api/contacto (Cloudflare Pages Function → Resend).
+   El visitante nunca sale de la página ni se abre su cliente de correo. */
 const contactForm = document.getElementById("contact-form");
 if (contactForm) {
   const telefonoInput = contactForm.telefono;
@@ -45,31 +47,65 @@ if (contactForm) {
   /* Estado inicial: vacío = inválido (campo requerido) */
   telefonoInput.setCustomValidity("Ingrese su número de teléfono.");
 
-  contactForm.addEventListener("submit", (e) => {
+  const statusEl = document.getElementById("form-status");
+  const submitBtn = contactForm.querySelector('button[type="submit"]');
+
+  const setStatus = (texto, tipo) => {
+    if (!statusEl) return;
+    statusEl.textContent = texto;
+    statusEl.className = "form-status" + (tipo ? " is-" + tipo : "");
+  };
+
+  contactForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     /* Validación nativa: nombre y mensaje presentes, correo con formato
        válido (type=email) y teléfono con 8 dígitos (setCustomValidity). */
     if (!contactForm.reportValidity()) return;
 
-    const nombre = contactForm.nombre.value.trim();
-    const correo = contactForm.correo.value.trim();
-    const telefono = telefonoInput.value.trim();
-    const mensaje = contactForm.mensaje.value.trim();
+    const datos = {
+      nombre: contactForm.nombre.value.trim(),
+      correo: contactForm.correo.value.trim(),
+      telefono: telefonoInput.value.trim(),
+      mensaje: contactForm.mensaje.value.trim(),
+      website: contactForm.website ? contactForm.website.value : "",
+    };
 
-    const subject = `Consulta de ${nombre} — Estratégica Legal`;
-    const bodyLines = [
-      `Nombre: ${nombre}`,
-      `Correo: ${correo}`,
-      `Teléfono: ${telefono}`,
-      "",
-      mensaje,
-    ];
+    const textoOriginal = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Enviando…";
+    setStatus("", "");
 
-    const mailto = `mailto:contacto@estrategicalegal.com?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(bodyLines.join("\n"))}`;
+    try {
+      const res = await fetch("/api/contacto", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(datos),
+      });
+      const data = await res.json().catch(() => ({}));
 
-    window.location.href = mailto;
+      if (res.ok && data.ok) {
+        contactForm.reset();
+        telefonoInput.setCustomValidity("Ingrese su número de teléfono.");
+        setStatus(
+          "Gracias por escribirnos. Hemos recibido su mensaje y le contactaremos a la brevedad.",
+          "ok",
+        );
+      } else {
+        setStatus(
+          data.error ||
+            "No se pudo enviar el mensaje. Por favor intente de nuevo.",
+          "error",
+        );
+      }
+    } catch {
+      setStatus(
+        "No se pudo enviar el mensaje. Verifique su conexión e intente de nuevo.",
+        "error",
+      );
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = textoOriginal;
+    }
   });
 }

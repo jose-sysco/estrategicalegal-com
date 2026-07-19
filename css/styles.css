@@ -1283,6 +1283,39 @@ footer.site-footer {
   resize: vertical;
   min-height: 120px;
 }
+
+/* Campo trampa anti-spam: fuera de vista y del recorrido con teclado */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Mensaje de confirmación / error del formulario */
+.form-status {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  padding: 0;
+}
+.form-status.is-ok,
+.form-status.is-error {
+  padding: 0.8rem 1rem;
+  border-radius: 4px;
+  border-left: 3px solid;
+}
+.form-status.is-ok {
+  background: rgba(35, 75, 115, 0.07);
+  border-left-color: var(--azul-institucional);
+  color: var(--azul-profundo);
+}
+.form-status.is-error {
+  background: rgba(163, 122, 71, 0.1);
+  border-left-color: var(--bronce);
+  color: var(--gris-grafito);
+}
 .map-wrap {
   border-radius: 6px;
   overflow: hidden;

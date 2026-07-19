@@ -266,6 +266,17 @@
                 <label for="mensaje">Mensaje</label>
                 <textarea id="mensaje" name="mensaje" required></textarea>
               </div>
+              <!-- Anti-spam: invisible para personas, los bots sí lo rellenan -->
+              <div class="hp-field" aria-hidden="true">
+                <label for="website">No llenar este campo</label>
+                <input
+                  type="text"
+                  id="website"
+                  name="website"
+                  tabindex="-1"
+                  autocomplete="off"
+                />
+              </div>
               <button
                 type="submit"
                 class="btn btn-primary"
@@ -273,6 +284,12 @@
               >
                 Enviar mensaje
               </button>
+              <p
+                class="form-status"
+                id="form-status"
+                role="status"
+                aria-live="polite"
+              ></p>
             </form>
           </div>
         </div>
